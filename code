@@ -1,13 +1,13 @@
 #include <stdio.h>
-
 int a[100];
+
 void PrintArray(arraysize);
 int SumOfArray(arraysize);
 void AscendingOrder(arraysize);
 void DescendingOrder(arraysize);
 int SearchArray(arraysize,search);
 void InsertElement(arraysize);
-
+void PrimeArray(arraysize);
 void main()
 {
     int arraysize;
@@ -32,6 +32,7 @@ void main()
     
     printf("Enter\n 1:PrintArray\n 2:SumOfArray\n 3:AscendingOrder\n 4:DescendingOrder\n 5:SearchArray\n 6:InsertElement\n ");
     scanf("%d",&command);
+    
     
     switch(command)
     {
@@ -70,9 +71,13 @@ void main()
         InsertElement(arraysize);
         break;
         
-       
+        default:
+        PrimeArray(arraysize);
+        break;
         
     }
+} 
+
 void PrintArray(arraysize)
 {
     int i;
@@ -81,8 +86,8 @@ void PrintArray(arraysize)
         printf("a[%d]=%d\n",i,a[i]);
     }
 }
-
-
+    
+    
 int SumOfArray(arraysize)
 {
     int i;
@@ -93,56 +98,67 @@ int SumOfArray(arraysize)
     }
     return sum;
 }
-
-
+    
+    
 void AscendingOrder(arraysize)
 {
+    
     int i=0;
     int j=0;
-    int min=a[i];
+    int n=arraysize;
+    int max;
     int dummy;
-    for(i=0;i<arraysize;i++)
+    for(i=0;i<n;i++)
     {
-        for(j=i+1;i<arraysize;j++)
+        max=a[i];
+        for(j=i+1;j<n;j++)
         {
-            if(min>a[j])
+            if(max>a[j])
             {
-                dummy=a[j];
-                a[j]=min;
-                min=dummy;
+                dummy=max;
+                max=a[j];
+                a[j]=dummy;
             }
+            
         }
-      
+        a[i]=max;
     }
-    for(i=0;i<arraysize;i++)
+    
+     for(i=0;i<n;i++)
     {
         printf("a[%d]=%d\n",i,a[i]);
     }
-    
+
 }
+
 void DescendingOrder(arraysize)
 {
     int i=0;
     int j=0;
-    int max=a[i];
+    int n=arraysize;
+    int max;
     int dummy;
-    for(i=0;i<arraysize;i++)
+    for(i=0;i<n;i++)
     {
-        for(j=i+1;i<arraysize;j++)
+        max=a[i];
+        for(j=i+1;j<n;j++)
         {
             if(max<a[j])
             {
-                dummy=a[j];
-                a[j]=max;
-                max=dummy;
+                dummy=max;
+                max=a[j];
+                a[j]=dummy;
             }
+            
         }
-      
+        a[i]=max;
     }
-    for(i=0;i<arraysize;i++)
+    
+     for(i=0;i<n;i++)
     {
         printf("a[%d]=%d\n",i,a[i]);
     }
+
 }
 
 int SearchArray(arraysize,search)
@@ -162,24 +178,68 @@ int SearchArray(arraysize,search)
     }
     return ans;
 }
+
 void InsertElement(arraysize)
 {
     int p;
     int q;
     int flag=0;
+    int i=arraysize;
     
     printf("Enter element to be inserted\n");
     scanf("%d",&p);
     while(flag==0)
     {
         printf("Enter address between 0 and %d\n",arraysize);
-        scanf("%d",q);
+        scanf("%d",&q);
         if(q>=0&&q<=arraysize)
         {
             flag=1;
         }
     }
     
+    for(i=arraysize;i>q;i--)
+    {
+        
+        a[i]=a[i-1];
+    }
+    a[q]=p;
+    for(i=0;i<=arraysize;i++)
+    {
+        printf("a[%d]=%d\n",i,a[i]);
+    }
+    
+    
+}
+void PrimeArray(arraysize)
+{
+    int i;
+    int divisor;
+    int flag=0;
+    int b[100];
+    int j=0;
+    for(i=0;i<arraysize;i++)
+    {
+        flag=0;
+        for(divisor=2;divisor<a[i];divisor++)
+        {
+            if(a[i]%divisor==0)
+            {
+                flag=1;
+            }
+        }
+        
+        if(flag==0)
+        {
+            b[j]=a[i];
+            j++;
+        }
+    }
+    for(i=0;i<j;i++)
+    {
+        printf("b[%d]=%d\n",i,b[i]);
+        
+    }
 }
 
 
